@@ -932,6 +932,8 @@ bot.on('message', message=> {
             bdd["pointdesciences-utilisateurs"][message.author.id] = 1;
             Savebdd();
             bdd5["work"][message.author.id] = 500;
+            bdd5["workmin"][message.author.id] = 50;
+            bdd5["nbfuséelancée"][message.author.id] = 0;
             Savebdd5();
             message.channel.send(
                 let = new Discord.MessageEmbed()
