@@ -1,1 +1,0 @@
-worher: node index.js
