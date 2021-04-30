@@ -5,7 +5,7 @@ const { platform } = require('os');
 const { ESTALE } = require('constants');
 const fs = require("fs");
 
-bot.login("ODA0NDAwODg0NjUzMDk2OTYw.YBLysw.wWiFNZB8GGaaOYpGVE1LFyAMvyE")
+bot.login("TOKEN")
 let prefix = "/";
 
 const bdd = require("./bdd.json");
