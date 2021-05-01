@@ -1046,7 +1046,7 @@ bot.on('message', message=> {
     }
 
     if(message.content){
-        if(bdd3["xp"][message.author.id] === niveau1){
+        if(bdd3["xp"][message.author.id] >= niveau1 && bdd3["xp"][message.author.id] < niveau2){
             bdd3["niveauagence"][message.author.id] = 1;
             Savebdd3();
             bdd3["xp"][message.author.id] = 0;
