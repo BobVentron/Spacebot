@@ -5,7 +5,7 @@ const { platform } = require('os');
 const { ESTALE } = require('constants');
 const fs = require("fs");
 
-bot.login("TOKEN")
+bot.login("ODA0NDAwODg0NjUzMDk2OTYw.YBLysw.DGlKfryjUMc4zHvofaqtpZRxZLg")
 let prefix = "/";
 
 const bdd = require("./bdd.json");
@@ -13,6 +13,7 @@ const bdd2 = require("./bdd2.json");
 const bdd3 = require("./bdd3.json");
 const bdd4 = require("./bdd4.json");
 const bdd5 = require("./bdd5.json");
+const bdd6 = require("./bdd6.json");
 const talkedRecently_cadeau = new Set();
 const timesabotage = new Set();
 const timesgrab = new Set();
@@ -70,22 +71,33 @@ bot.on('message', message=> {
             let niveau = `${bdd3["niveauagence"][message.author.id]}`.replace(/undefined/g, 0)
 
             if(bdd4["agence"][message.author.id] > 0){
-                let posséderaggence = `**Vous avez une agence.** \n**Son nom est:** ${bdd4["nom"][message.author.id]} \n**Sa description est:** ${bdd4["desciption"][message.author.id]}\nVotre agence est niveau ${niveau}`
-                message.channel.send(
-                    let = new Discord.MessageEmbed()
-                    .setColor("#FF0000")
-                    .setTitle("**Vous disposez de:**")
-                    .setDescription(`${cashplayer}$ en poche. \n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\n${posséderaggence}`)
-                    .setAuthor(bot.users.cache.get(userID).username)
-                    .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
-                    .setTimestamp()
-                )
+                let posséderaggence = `__**Vous avez une agence.**__ \n__**Son nom est:**__ ${bdd4["nom"][message.author.id]} \n__**Sa description est:**__ ${bdd4["desciption"][message.author.id]}\nVotre agence est niveau ${niveau}`
+                if(!bdd4["logo"][message.author.id]){
+                    message.channel.send(
+                        let = new Discord.MessageEmbed()
+                        .setColor("#FF0000")
+                        .setTitle("**Vous disposez de:**")
+                        .setDescription(`${cashplayer}$ en poche. \n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\n${posséderaggence}\nVous avez lancé ${bdd5["nbfuséelancée"][message.author.id]} fusée!`)
+                        .setAuthor(bot.users.cache.get(userID).username)
+                        .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                    )
+                }else{
+                    message.channel.send(
+                        let = new Discord.MessageEmbed()
+                        .setColor("#FF0000")
+                        .setTitle("**Vous disposez de:**")
+                        .setDescription(`${cashplayer}$ en poche. \n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\nVous avez lancé ${bdd5["nbfuséelancée"][message.author.id]} fusée!\n${posséderaggence} \n Le logo de votre agence:`)
+                        .setAuthor(bot.users.cache.get(userID).username)
+                        .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                        .setImage(bdd4["logo"][message.author.id])
+                    )
+                }
             }else{
                 message.channel.send(
                     let = new Discord.MessageEmbed()
                     .setColor("#FF0000")
                     .setTitle("**Vous disposez de:**")
-                    .setDescription(`${cashplayer}$ en poche. \n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\n${posséderaggence}`)
+                    .setDescription(`${cashplayer}$ en poche. \n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\nVous avez lancé ${bdd5["nbfuséelancée"][message.author.id]} fusée!\n${posséderaggence}`)
                     .setAuthor(bot.users.cache.get(userID).username)
                     .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
                     .setTimestamp()
@@ -103,22 +115,36 @@ bot.on('message', message=> {
             let niveau = `${bdd3["niveauagence"][member.id]}`.replace(/undefined/g, 0)
 
             if(bdd4["agence"][member.id] > 0){
-                let posséderaggence = `**Son agence est:** ${bdd4["nom"][member.id]} \n**La description de son agence est :** ${bdd4["desciption"][member.id]}\nElle est niveau ${niveau}`
-                message.channel.send(
-                    let = new Discord.MessageEmbed()
-                    .setColor("#FF0000")
-                    .setTitle("**Cette personne dispose de:**")
-                    .setDescription(`${cashplayer}$ en poche.\n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\n${posséderaggence}`)
-                    .setAuthor(bot.users.cache.get(member.id).username)
-                    .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
-                    .setTimestamp()
-                ) 
+                let posséderaggence = `__**Son agence est:**__ ${bdd4["nom"][member.id]} \n__**La description de son agence est :**__ ${bdd4["desciption"][member.id]}\nElle est niveau ${niveau}`
+                if(!bdd4["logo"][message.author.id]){
+                    message.channel.send(
+                        let = new Discord.MessageEmbed()
+                        .setColor("#FF0000")
+                        .setTitle("**Cette personne dispose de:**")
+                        .setDescription(`${cashplayer}$ en poche.\n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\nCette personne a lancé ${bdd5["nbfuséelancée"][member.id]} fusée!\n${posséderaggence}\nLe logo de sont agence est:`)
+                        .setAuthor(bot.users.cache.get(member.id).username)
+                        .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                        .setTimestamp()
+                        .setImage(bdd4["logo"][member.id])
+                    )
+                }else{
+                    message.channel.send(
+                        let = new Discord.MessageEmbed()
+                        .setColor("#FF0000")
+                        .setTitle("**Cette personne dispose de:**")
+                        .setDescription(`${cashplayer}$ en poche.\n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\nCette personne a lancé ${bdd5["nbfuséelancée"][member.id]} fusée!\n${posséderaggence}`)
+                        .setAuthor(bot.users.cache.get(member.id).username)
+                        .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                        .setTimestamp()
+                    )
+                } 
+
             }else{
                 message.channel.send(
                     let = new Discord.MessageEmbed()
                     .setColor("#FF0000")
                     .setTitle("**Cette personne dispose de:**")
-                    .setDescription(`${cashplayer}$ en poche.\n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\n${posséderaggence}`)
+                    .setDescription(`${cashplayer}$ en poche.\n${bankplayer}$ en banque.\n${pdcplayer} points de sciences. \n${ft1player} fusée tiers 1.\n${ft2player} fusée tiers 2.\n${ft3player} fusée tiers 3.\nCette personne a lancé ${bdd5["nbfuséelancée"][member.id]} fusée!\n${posséderaggence}`)
                     .setAuthor(bot.users.cache.get(member.id).username)
                     .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
                     .setTimestamp()
@@ -191,7 +217,7 @@ bot.on('message', message=> {
     }
 
     if (message.content.startsWith(prefix + 'retirer')){
-        let retirer = message.content.slice(8)
+        let retirer = message.content.slice(9)
         if(!retirer)return;
         console.log(retirer)
             if(!bdd4["agence"][message.author.id]){
@@ -284,35 +310,44 @@ bot.on('message', message=> {
             }else{
                 if(!args[1])return;
                 let member = bot.guilds.cache.get(message.guild.id).members.cache.get(`${args[1]}`.replace(/<@/g, "").replace(/!/g, "").replace(/>/g, "")) // Récupération d'une ID via une mention/une ID ( argument 1 ) et détection d'utilisateur
-                if(!member)return;
-                if(!bdd['cash-utilisateurs'][member.id])return; // Si l'utilisateur n'existe pas dans le storage 'cash-utilisateur' alors return;
-                let rgrab = Math.floor(Math.random() * (15 - 1) + 1)
-                console.log(rgrab)
-                let percent = parseInt(bdd['cash-utilisateurs'][member.id])*parseInt(rgrab)/100 // Récupération de la valeur rgrab% de la valeur 'cash-utilisateur' de l'utilisateur
-                console.log(Math.round(parseInt(percent)))
-                bdd['cash-utilisateurs'][message.author.id] = parseInt(bdd['cash-utilisateurs'][message.author.id]) + parseInt(percent) // Rajoute rgrab% ( percent ) au voleur
-                bdd['cash-utilisateurs'][member.id] = parseInt(bdd['cash-utilisateurs'][member.id]) - parseInt(percent) // Enlève rgrab% ( percent ) à la victime
-                Savebdd();
-                message.channel.send(
-                let = new Discord.MessageEmbed()
-                .setColor("#FF0000")
-                .setTitle("**Vol**")
-                .setDescription(`**vous venez de voler** ${bot.guilds.cache.get(message.guild.id).members.cache.get(`${args[1]}`.replace(/<@/g, "").replace(/!/g, "").replace(/>/g, ""))} \n Vous lui avez pris ${percent}$`)
-                .setAuthor(bot.users.cache.get(userID).username)
-                .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
-                .setTimestamp()
-                );
-                b.send(`Le personne ${bot.guilds.cache.get(message.guild.id).members.cache.get(`${args[1]}`.replace(/<@/g, "").replace(/!/g, "").replace(/>/g, ""))} c'est fait voler ${percent}$ par ${bot.users.cache.get(userID).username}`);
-            }
-            
-             
-            timesgrab.add(id_usr);
+                if(!bdd['cash-utilisateurs'][member.id] || !member){
+                    message.channel.send(
+                    let = new Discord.MessageEmbed()
+                        .setColor("#FF0000")
+                        .setTitle("**Vol**")
+                        .setDescription(`Vous pouvez pas voler ${bot.guilds.cache.get(message.guild.id).members.cache.get(`${args[1]}`.replace(/<@/g, "").replace(/!/g, "").replace(/>/g, ""))} car il n'a pas d'argent en poche.`)
+                        .setAuthor(bot.users.cache.get(userID).username)
+                        .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                        .setTimestamp()
+                    )
+                }else{
+                    let rgrab = Math.floor(Math.random() * (15 - 1) + 1)
+                    console.log(rgrab)
+                    let percent = parseInt(bdd['cash-utilisateurs'][member.id])*parseInt(rgrab)/100 // Récupération de la valeur rgrab% de la valeur 'cash-utilisateur' de l'utilisateur
+                    console.log(Math.round(parseInt(percent)))
+                    bdd['cash-utilisateurs'][message.author.id] = parseInt(bdd['cash-utilisateurs'][message.author.id]) + parseInt(percent) // Rajoute rgrab% ( percent ) au voleur
+                    bdd['cash-utilisateurs'][member.id] = parseInt(bdd['cash-utilisateurs'][member.id]) - parseInt(percent) // Enlève rgrab% ( percent ) à la victime
+                    Savebdd();
+                    b.send(`Le personne ${bot.guilds.cache.get(message.guild.id).members.cache.get(`${args[1]}`.replace(/<@/g, "").replace(/!/g, "").replace(/>/g, ""))} c'est fait voler ${percent}$ par ${bot.users.cache.get(userID).username}`);
+                    message.channel.send(
+                    let = new Discord.MessageEmbed()
+                        .setColor("#FF0000")
+                        .setTitle("**Vol**")
+                        .setDescription(`**vous venez de voler** ${bot.guilds.cache.get(message.guild.id).members.cache.get(`${args[1]}`.replace(/<@/g, "").replace(/!/g, "").replace(/>/g, ""))} \n Vous lui avez pris ${percent}$`)
+                        .setAuthor(bot.users.cache.get(userID).username)
+                        .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                        .setTimestamp()
+                    
+                    );
+                }
+
+                timesgrab.add(id_usr);
                 setTimeout(() => {
                   // Removes the user from the set after a minute
                   timesgrab.delete(id_usr);
                 }, 21600000);
-        }
-        
+            }
+        } 
     }
 
     if( message.content === prefix + "work"){
@@ -321,7 +356,7 @@ bot.on('message', message=> {
                 let = new Discord.MessageEmbed()
                 .setColor("#FF0000")
                 .setTitle("**Travail**")
-                .setDescription(`Pour effectuer cette commande il faut avoir une agence spatial.\nPour cela faite la commande /créer une agence`)
+                .setDescription(`Pour effectuer cette commande il faut avoir une agence spatial.\nPour cela faite la commande /crÃ©er une agence`)
                 .setAuthor(bot.users.cache.get(userID).username)
                 .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
                 .setTimestamp()
@@ -329,17 +364,20 @@ bot.on('message', message=> {
         }else{
             let id_usr = message.author.id;
             if (talkedRecently_cadeau.has(id_usr)) {
+                let remainingtime = bdd6["lastwork"][message.author.id] - new Date().getTime() + 14400000
+                let hours = Math.floor((remainingtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+                let minutes = Math.floor((remainingtime % (1000 * 60 * 60)) / (1000 * 60))
                 message.channel.send(
                     let = new Discord.MessageEmbed()
                     .setColor("#FF0000")
                     .setTitle("**Travail**")
-                    .setDescription("Il faut attendre 4 heures avant de pouvoir executer la commande de nouveau.")
+                    .setDescription("Il faut attendre " + hours + " heures " + minutes + " minutes avant de pouvoir executer la commande de nouveau." )
                     .setAuthor(bot.users.cache.get(userID).username)
                     .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
                     .setTimestamp()
                 )
-                b.send(`Le personne ${bot.users.cache.get(userID).username} a utliser la commende ${prefix}work sans attendre 6h`);
-            } else {
+                b.send(`Le personne ${bot.users.cache.get(userID).username} a utliser la commande ${prefix}work sans attendre 4h`);
+            }else{
                 let work$ = Math.floor(Math.random() * (parseInt(bdd5["work"][message.author.id]) - 50) + 50);
                 let workpds = Math.floor(Math.random() * (201 - 50) + 50);
                 bdd["cash-utilisateurs"][message.author.id] = bdd["cash-utilisateurs"][message.member.id] + parseInt(work$)
@@ -356,8 +394,11 @@ bot.on('message', message=> {
                     .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
                     .setTimestamp()
                 )
-                b.send(`Le personne ${bot.users.cache.get(userID).username} a utliser la commende ${prefix}work et a gagner ${work$}$ et ${workpds} point de sciences`);
-            
+                b.send(`Le personne ${bot.users.cache.get(userID).username} a utliser la commande ${prefix}work et a gagner ${work$}$ et ${workpds} point de sciences`);
+
+                bdd6["lastwork"][message.author.id] = new Date().getTime()
+                Savebdd6();
+                
                 talkedRecently_cadeau.add(id_usr);
                 setTimeout(() => {
                 // Removes the user from the set after a minute
@@ -367,7 +408,9 @@ bot.on('message', message=> {
         }
     }
 
-    if(message.content === prefix + "buy tier 1"){
+
+
+    if(message.content === prefix + "buy tiers 1"){
         if(!bdd4["agence"][message.author.id]){
             message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -379,7 +422,7 @@ bot.on('message', message=> {
                 .setTimestamp()
             ) 
         }else{
-            if(bdd["cash-utilisateurs"][message.author.id] >= 5000 && bdd["pointdesciences-utilisateurs"][message.author.id] >= 150){
+            if(bdd["cash-utilisateurs"][message.author.id] >= 5000 && bdd["pointdesciences-utilisateurs"][message.author.id] >= 500){
                 if(!bdd2["fusé-tier-1"][message.author.id]){
                     bdd2["fusé-tier-1"][message.author.id] = 1;
                     Savebdd2();
@@ -388,7 +431,7 @@ bot.on('message', message=> {
                     Savebdd2();
                 }
                 bdd["cash-utilisateurs"][message.author.id] = parseInt(bdd["cash-utilisateurs"][message.author.id]) - 5000
-                bdd["pointdesciences-utilisateurs"][message.author.id] = parseInt(bdd["pointdesciences-utilisateurs"][message.author.id]) - 150
+                bdd["pointdesciences-utilisateurs"][message.author.id] = parseInt(bdd["pointdesciences-utilisateurs"][message.author.id]) - 500
                 Savebdd();
                 message.channel.send(
                     let = new Discord.MessageEmbed()
@@ -415,7 +458,7 @@ bot.on('message', message=> {
         }
     }
 
-    if(message.content === prefix + "buy tier 2"){
+    if(message.content === prefix + "buy tiers 2"){
         if(!bdd4["agence"][message.author.id]){
             message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -427,7 +470,7 @@ bot.on('message', message=> {
                 .setTimestamp()
             ) 
         }else{
-            if(bdd["cash-utilisateurs"][message.author.id] >= 70000 && bdd["pointdesciences-utilisateurs"][message.author.id] >= 1200){
+            if(bdd["cash-utilisateurs"][message.author.id] >= 30000 && bdd["pointdesciences-utilisateurs"][message.author.id] >= 3000){
                 if(!bdd2["fusé-tier-2"][message.author.id]){
                     bdd2["fusé-tier-2"][message.author.id] = 1;
                     Savebdd2();
@@ -435,8 +478,8 @@ bot.on('message', message=> {
                     bdd2["fusé-tier-2"][message.author.id] = parseInt(bdd2["fusé-tier-2"][message.author.id]) + 1;
                     Savebdd2();
                 }
-                bdd["cash-utilisateurs"][message.author.id] = parseInt(bdd["cash-utilisateurs"][message.author.id]) - 70000
-                bdd["pointdesciences-utilisateurs"][message.author.id] = parseInt(bdd["pointdesciences-utilisateurs"][message.author.id]) - 1200
+                bdd["cash-utilisateurs"][message.author.id] = parseInt(bdd["cash-utilisateurs"][message.author.id]) - 30000
+                bdd["pointdesciences-utilisateurs"][message.author.id] = parseInt(bdd["pointdesciences-utilisateurs"][message.author.id]) - 3000
                 Savebdd();
                 message.channel.send(
                     let = new Discord.MessageEmbed()
@@ -463,7 +506,7 @@ bot.on('message', message=> {
         }
     }
 
-    if(message.content === prefix + "buy tier 3"){
+    if(message.content === prefix + "buy tiers 3"){
         if(!bdd4["agence"][message.author.id]){
             message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -475,7 +518,7 @@ bot.on('message', message=> {
                 .setTimestamp()
             ) 
         }else{
-            if(bdd["cash-utilisateurs"][message.author.id] >= 200000 && bdd["pointdesciences-utilisateurs"][message.author.id] >= 20000){
+            if(bdd["cash-utilisateurs"][message.author.id] >= 70000 && bdd["pointdesciences-utilisateurs"][message.author.id] >= 5000){
                 if(!bdd2["fusé-tier-3"][message.author.id]){
                     bdd2["fusé-tier-3"][message.author.id] = 1;
                     Savebdd2();
@@ -483,8 +526,8 @@ bot.on('message', message=> {
                     bdd2["fusé-tier-3"][message.author.id] = parseInt(bdd2["fusé-tier-3"][message.author.id]) + 1;
                     Savebdd2();
                 }
-                bdd["cash-utilisateurs"][message.author.id] = parseInt(bdd["cash-utilisateurs"][message.author.id]) - 200000
-                bdd["pointdesciences-utilisateurs"][message.author.id] = parseInt(bdd["pointdesciences-utilisateurs"][message.author.id]) - 20000
+                bdd["cash-utilisateurs"][message.author.id] = parseInt(bdd["cash-utilisateurs"][message.author.id]) - 70000
+                bdd["pointdesciences-utilisateurs"][message.author.id] = parseInt(bdd["pointdesciences-utilisateurs"][message.author.id]) - 5000
                 Savebdd();
                 message.channel.send(
                     let = new Discord.MessageEmbed()
@@ -615,7 +658,7 @@ bot.on('message', message=> {
         }
     }
 
-    if(message.content === prefix + "launch tier 1"){
+    if(message.content === prefix + "launch tiers 1"){
         if(!bdd4["agence"][message.author.id]){
             message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -681,6 +724,8 @@ bot.on('message', message=> {
                                     }else{
                                         bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] + parseInt(Math.floor(Math.random() * (2000 - 500) + 1))
                                         Savebdd3();
+                                        bdd5["nbfuséelancée"][message.author.id] = bdd5["nbfuséelancée"][message.author.id] + 1;
+                                        Savebdd5();
                                         message.channel.send(
                                             let = new Discord.MessageEmbed()
                                             .setColor("#FF0000")
@@ -700,7 +745,7 @@ bot.on('message', message=> {
         }
     }
 
-    if(message.content === prefix + "launch tier 2"){
+    if(message.content === prefix + "launch tiers 2"){
         if(!bdd4["agence"][message.author.id]){
             message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -766,6 +811,8 @@ bot.on('message', message=> {
                                     }else{
                                         bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] + parseInt(Math.floor(Math.random() * (4000 - 1000) + 1))
                                         Savebdd3();
+                                        bdd5["nbfuséelancée"][message.author.id] = bdd5["nbfuséelancée"][message.author.id] + 1;
+                                        Savebdd5();
                                         message.channel.send(
                                             let = new Discord.MessageEmbed()
                                             .setColor("#FF0000")
@@ -785,7 +832,7 @@ bot.on('message', message=> {
         }
     }
 
-    if(message.content === prefix + "launch tier 3"){
+    if(message.content === prefix + "launch tiers 3"){
         if(!bdd4["agence"][message.author.id]){
             message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -851,6 +898,8 @@ bot.on('message', message=> {
                                     }else{
                                         bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] + parseInt(Math.floor(Math.random() * (6000 - 2500) + 1))
                                         Savebdd3();
+                                        bdd5["nbfuséelancée"][message.author.id] = bdd5["nbfuséelancée"][message.author.id] + 1;
+                                        Savebdd5();
                                         message.channel.send(
                                             let = new Discord.MessageEmbed()
                                             .setColor("#FF0000")
@@ -1021,12 +1070,41 @@ bot.on('message', message=> {
         }
     }
 
+    if(message.content.startsWith(prefix + "logoagence")){
+        if(bdd4["agence"][message.author.id] > 0){
+            let argslogo = message.content.slice(12)
+            bdd4["logo"][message.author.id] = argslogo
+            if(!argslogo)return
+            Savebdd4();
+            message.channel.send(
+                let = new Discord.MessageEmbed()
+                    .setColor("#FF0000")
+                    .setTitle("**Agence:**")
+                    .setDescription(`Le logo de votre agence viens d'être changer \n`)
+                    .setAuthor(bot.users.cache.get(userID).username)
+                    .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                    .setTimestamp()
+                    .setImage(argslogo)
+            )
+        }else{
+            message.channel.send(
+                let = new Discord.MessageEmbed()
+                    .setColor("#FF0000")
+                    .setTitle("**Agence:**")
+                    .setDescription(`Vous ne pouvez pas mettre ou changer le logo de votre agence car vous n'en avez pas. \nFaite la commande /créer une agence pour en avoir une.`)
+                    .setAuthor(bot.users.cache.get(userID).username)
+                    .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                    .setTimestamp()
+            )
+        }
+    }
+
     if(message.content === prefix + "help" || message.content === prefix + "aide"){
         message.channel.send(
             let = new Discord.MessageEmbed()
                 .setColor("#FF0000")
                 .setTitle("__**Aide:**__")
-                .setDescription(`**/créer une agence** : *créer votre agence spatial.* \n**/nomagence [suivi du nom que vous voulez donner]** : *modifie le nom de votre agence.*\n**/descriptionagence [suivi de la description que vous voulez donner]** : *modifie la description de votre agence.*\n**/info** : *vous donne toutes les infos de vous et votre agence.*\n**/market** : *vous permet de savoir le prix des choses que vous pouvez acheter* \n**/work** : *vous permet toutes les 4 heures de gagner de l'argent et des points de science*\n**/dep all ou /dep [suivi du nombre que vous voulez déposer]** : *dépose en banque le montant d'argent indiqué*\n**/retirer all ou /retirer [suivi du nombre que vous voulez retirer]** : *retire de la banque le montant d'argent indiqué*\n**/voler [@unjoueur]** : *permet de voler une parti du montant en poche du joueur mentionné*\n**/sabotage [@unjoueur]** : *permet de saboter la fusée du joueur mentionné*\n**/réparer** : *permet de réparer une fusée saboté*\n**/buy tiers 1** : *permet d'acheter une fusée tiers 1*\n**/buy tiers 2** : *permet d'acheter une fusée tiers 2*\n**/buy tiers 3** : *permet d'acheter une fusée tiers 3*\n**/launch tiers 1** : *permet de lancer une fusée tiers 1*\n**/launch tiers 2** : *permet de lancer une fusée tiers 2*\n**/launch tiers 3** : *permet de lancer une fusée tiers 3*`)
+                .setDescription(`**/créer une agence** : *créer votre agence spatial.* \n**/nomagence [suivi du nom que vous voulez donner]** : *modifie le nom de votre agence.*\n**/descriptionagence [suivi de la description que vous voulez donner]** : *modifie la description de votre agence.*\n**/logoagence [lien de l'image] :** *définit le logo de votre agence selon le lien de l'image que vous avez mis*\n**/info** : *vous donne toutes les infos de vous et votre agence.*\n**/market** : *vous permet de savoir le prix des choses que vous pouvez acheter* \n**/work** : *vous permet toutes les 4 heures de gagner de l'argent et des points de science*\n**/recherche [nombre de points de science que tu veux convertir] :** *convertis le nombre de points de science donné et donne la moitié en argent*\n**/dep all ou /dep [suivi du nombre que vous voulez déposer]** : *dépose en banque le montant d'argent indiqué*\n**/retirer all ou /retirer [suivi du nombre que vous voulez retirer]** : *retire de la banque le montant d'argent indiqué*\n**/voler [@unjoueur]** : *permet de voler une parti du montant en poche du joueur mentionné*\n**/sabotage [@unjoueur]** : *permet de saboter la fusée du joueur mentionné*\n**/réparer** : *permet de réparer une fusée saboté*\n**/buy tiers 1** : *permet d'acheter une fusée tiers 1*\n**/buy tiers 2** : *permet d'acheter une fusée tiers 2*\n**/buy tiers 3** : *permet d'acheter une fusée tiers 3*\n**/launch tiers 1** : *permet de lancer une fusée tiers 1*\n**/launch tiers 2** : *permet de lancer une fusée tiers 2*\n**/launch tiers 3** : *permet de lancer une fusée tiers 3*`)
                 .setAuthor(bot.users.cache.get(userID).username)
                 .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
                 .setTimestamp()
@@ -1038,11 +1116,52 @@ bot.on('message', message=> {
             let = new Discord.MessageEmbed()
                 .setColor("#FF0000")
                 .setTitle("__**Market**__")
-                .setDescription(`**Saboter coût:** 7500$\n**Réparer sa fusé saboter coût:** *2000$ et 20 points de science*\n**Fusée de tiers 1 coût:** *5000$ et 150 points de science*\n**Fusée de tiers 2 coût:** *70 000$ et 1200 points de science*\n**Fusée de tiers 3 coût:** *200 000$ et 2000 points de science*`)
+                .setDescription(`**Saboter coût:** 7500$\n**Réparer sa fusé saboter coût:** *2000$ et 20 points de science*\n**Fusée de tiers 1 coût:** *5000$ et 500 points de science*\n**Fusée de tiers 2 coût:** *30 000$ et 3000 points de science*\n**Fusée de tiers 3 coût:** *70 000$ et 5000 points de science*`)
                 .setAuthor(bot.users.cache.get(userID).username)
                 .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
                 .setTimestamp()
         )
+    }
+
+    if(message.content.startsWith(prefix + "recherche")){
+        let argsrecherche = parseInt(message.content.slice(11)) 
+        if(!argsrecherche)return
+        if(!bdd4["agence"][message.author.id]){
+            message.channel.send(
+                let = new Discord.MessageEmbed()
+                .setColor("#FF0000")
+                .setTitle("**Recherche**")
+                .setDescription(`Pour effectuer cette commende il faut avoir une agence spacial.\nPour cela fait la commende /créer une agence`)
+                .setAuthor(bot.users.cache.get(userID).username)
+                .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                .setTimestamp()
+            ) 
+        }else{
+            if(argsrecherche > bdd["pointdesciences-utilisateurs"][message.author.id]){
+                message.channel.send(
+                    let = new Discord.MessageEmbed()
+                    .setColor("#FF0000")
+                    .setTitle("**Recherche**")
+                    .setDescription(`Vous avez pas ${argsrecherche} points de science.`)
+                    .setAuthor(bot.users.cache.get(userID).username)
+                    .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                    .setTimestamp()
+                ) 
+            }else{
+                bdd["pointdesciences-utilisateurs"][message.author.id] = bdd["pointdesciences-utilisateurs"][message.author.id] - parseInt(argsrecherche)
+                bdd["cash-utilisateurs"][message.author.id] = parseInt(bdd["cash-utilisateurs"][message.author.id]) + ((parseInt(argsrecherche))/2);
+                Savebdd();
+                message.channel.send(
+                    let = new Discord.MessageEmbed()
+                    .setColor("#FF0000")
+                    .setTitle("**Recherche**")
+                    .setDescription(`Vous avez convertis ${argsrecherche} points de science pour gagner de l'argent !\nVous avez gagné ${argsrecherche/2}$!`)
+                    .setAuthor(bot.users.cache.get(userID).username)
+                    .setThumbnail("https://cdn.discordapp.com/attachments/809346706986631208/809351393831026708/unknown.png")
+                    .setTimestamp()
+                ) 
+            }
+        }
     }
 
     if(message.content){
@@ -1068,6 +1187,7 @@ bot.on('message', message=> {
                 bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau2);
                 Savebdd3();
                 bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+                bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
                 Savebdd5();
                 message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -1087,6 +1207,7 @@ bot.on('message', message=> {
                 bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau3);
                 Savebdd3();
                 bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+                bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
                 Savebdd5();
                 message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -1106,6 +1227,7 @@ bot.on('message', message=> {
                 bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau4);
                 Savebdd3();
                 bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+                bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
                 Savebdd5();
                 message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -1126,6 +1248,7 @@ bot.on('message', message=> {
                 bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau5);
                 Savebdd3();
                 bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+                bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
                 Savebdd5();
                 message.channel.send(
                 let = new Discord.MessageEmbed()
@@ -1145,6 +1268,7 @@ bot.on('message', message=> {
               bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau6);
               Savebdd3();
               bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+              bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
               Savebdd5();
               message.channel.send(
               let = new Discord.MessageEmbed()
@@ -1164,6 +1288,7 @@ bot.on('message', message=> {
             bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau7);
             Savebdd3();
             bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+            bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
             Savebdd5();
             message.channel.send(
             let = new Discord.MessageEmbed()
@@ -1183,6 +1308,7 @@ bot.on('message', message=> {
           bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau8);
           Savebdd3();
           bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+          bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
           Savebdd5();
           message.channel.send(
           let = new Discord.MessageEmbed()
@@ -1202,6 +1328,7 @@ bot.on('message', message=> {
           bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau9);
           Savebdd3();
           bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+          bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
           Savebdd5();
           message.channel.send(
           let = new Discord.MessageEmbed()
@@ -1221,6 +1348,7 @@ bot.on('message', message=> {
           bdd3["xp"][message.author.id] = bdd3["xp"][message.author.id] - parseInt(niveau10);
           Savebdd3();
           bdd5["work"][message.author.id] = bdd5["work"][message.author.id] + 75;
+          bdd5["workmin"][message.author.id] = bdd5["workmin"][message.author.id] + 50;
           Savebdd5();
           message.channel.send(
           let = new Discord.MessageEmbed()
@@ -1263,5 +1391,11 @@ function Savebdd4() {
 function Savebdd5() {
     fs.writeFile("./bdd5.json", JSON.stringify(bdd5, null, 5), (err) => {
         if (err) message.channel.send("Une erreur est survenue(bdd5).");
+    });
+}
+
+function Savebdd6() {
+    fs.writeFile("./bdd6.json", JSON.stringify(bdd6, null, 6), (err) => {
+        if (err) message.channel.send("Une erreur est survenue(bdd6).");
     });
 }
